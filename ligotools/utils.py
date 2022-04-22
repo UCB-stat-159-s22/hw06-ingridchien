@@ -35,9 +35,8 @@ def reqshift(data,fshift=100,sample_rate=4096):
     z = np.fft.irfft(y)
     return z
 
-def plot_det(make_plots, det, strain_L1_whitenbp, strain_H1_whitenbp, fs,
-                  time, timemax, SNR, tevent, strain_whitenbp, template_match, 
-                  template_fft, d_eff, datafreq, template_f, freqs, data_psd, eventname, plottype):
+def plot_det(make_plots, det, strain_L1_whitenbp, strain_H1_whitenbp, template_match, time, timemax, SNR, eventname,
+             plottype, tevent, template_fft, datafreq, d_eff, f, fs, freqs, data_psd):
 
     if make_plots:
 
