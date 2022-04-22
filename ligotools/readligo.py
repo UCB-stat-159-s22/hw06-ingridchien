@@ -140,7 +140,7 @@ def read_hdf5(filename, readstrain=True):
     
     #-- Read the meta data
     meta = dataFile['meta']
-    gpsStart = meta['GPSstart'].value    
+    gpsStart = meta['GPSstart'].value
     
     dataFile.close()
     return strain, gpsStart, ts, qmask, shortnameList, injmask, injnameList
