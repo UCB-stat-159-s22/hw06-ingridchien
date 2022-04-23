@@ -1,14 +1,15 @@
-from ligotools import readligo
-from ligotools import utils
+import ligotools as lg
 import numpy as np
 from scipy.interpolate import interp1d
 import matplotlib.mlab as mlab
 from scipy.io import wavfile
+from scipy.signal import butter, filtfilt, iirdesign, zpk2tf, freqz
 import json
 import os
 
+
 #readligo tests
-H1 = readligo.read_hdf5('data/H-H1_LOSC_4_V2-1126259446-32.hdf5')
+H1 = lg.read_hdf5('data/H-H1_LOSC_4_V2-1126259446-32.hdf5')
 
 def test_hdf5_structure():
     assert len(H1) == 7
@@ -32,8 +33,8 @@ event = events[eventname]
 fn_H1 = 'data/'+event['fn_H1']
 fn_L1 = 'data/'+event['fn_L1']
 
-strain_H1, time_H1, chan_dict_H1 = readligo.loaddata(fn_H1, 'H1')
-strain_L1, time_L1, chan_dict_L1 = readligo.loaddata(fn_L1, 'L1')
+strain_H1, time_H1, chan_dict_H1 = lg.loaddata(fn_H1, 'H1')
+strain_L1, time_L1, chan_dict_L1 = lg.loaddata(fn_L1, 'L1')
 
 def test_loaddata_H1():
     assert strain_H1.shape == (131072, ) and time_H1.shape == (131072, )
@@ -51,20 +52,21 @@ time = time_H1
 dt = time[1] - time[0]
 fs = event['fs'] 
 NFFT = 4*fs
+NOVL = int(NFFT*15./16)
 Pxx_H1, freqs = mlab.psd(strain_H1, Fs = fs, NFFT = NFFT)
 Pxx_L1, freqs = mlab.psd(strain_L1, Fs = fs, NFFT = NFFT)
 psd_H1 = interp1d(freqs, Pxx_H1)
 psd_L1 = interp1d(freqs, Pxx_L1)
 
 def test_whiten():
-    WH = utils.whiten(strain_H1,psd_H1,dt)
+    WH = lg.whiten(strain_H1,psd_H1,dt)
     assert WH.max() == 734.9858519096138
     assert WH.min() == -688.2602995919118
     assert WH.shape == (131072, )
 
 def test_write_wavfile():
-    WH = utils.whiten(strain_H1,psd_H1,dt)
-    utils.write_wavfile(eventname, 4096, WH)
+    WH = lg.whiten(strain_H1,psd_H1,dt)
+    lg.write_wavfile(eventname, 4096, WH)
     wav = wavfile.read(eventname)
     assert len(wav) == 2
     assert wav[0] == 4096
@@ -72,8 +74,16 @@ def test_write_wavfile():
     os.remove(eventname)
 
 def test_reqshift():
-    WL = utils.whiten(strain_L1, psd_L1, dt)
-    strain_L1_shift = utils.reqshift(WL, 400., 4096)
+    WL = lg.whiten(strain_L1, psd_L1, dt)
+    strain_L1_shift = lg.reqshift(WL, 400., 4096)
     assert strain_L1_shift.max() == 91.63543337076183
     assert strain_L1_shift.min() == -88.35025813837271
     assert len(strain_L1_shift) == 131072
+
+
+def test_plot():
+    norm, offset, template = lg.plot_dets(1, 0, eventname, 'png')
+    assert norm == 0.3542432515235823
+    assert offset == 1771
+    assert template.shape == (131072, )
+    

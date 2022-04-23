@@ -1,13 +1,16 @@
 import numpy as np
 import json
 from scipy import signal
+from scipy.io import wavfile
 from scipy.interpolate import interp1d
 from scipy.signal import butter, filtfilt, iirdesign, zpk2tf, freqz
 import h5py
+import matplotlib
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import matplotlib.mlab as mlab
 
-import ligotools as ligo 
+#import ligotools as ligo 
 
 def whiten(strain, interp_psd, dt):
     Nt = len(strain)
@@ -41,7 +44,9 @@ def reqshift(data,fshift=100,sample_rate=4096):
     return z
 
 
-def plot_dets(make_plots, eventname, plottype):
+def plot_dets(make_plots, saveplot, eventname, plottype):
+    import ligotools as ligo 
+    
     fnjson = "data/BBH_events_v3.json"
     events = json.load(open(fnjson,"r"))
     event = events[eventname]
@@ -199,7 +204,8 @@ def plot_dets(make_plots, eventname, plottype):
             plt.grid('on')
             plt.xlabel('Time since {0:.4f}'.format(timemax))
             plt.legend(loc='upper left')
-            plt.savefig('figures/'+eventname+"_"+det+"_SNR."+plottype)
+            if saveplot:
+                plt.savefig('figures/'+eventname+"_"+det+"_SNR."+plottype)
             plt.figure(figsize=(10,8))
             plt.subplot(2,1,1)
             plt.plot(time-tevent,strain_whitenbp,pcolor,label=det+' whitened h(t)')
@@ -220,7 +226,8 @@ def plot_dets(make_plots, eventname, plottype):
             plt.ylabel('whitened strain (units of noise stdev)')
             plt.legend(loc='upper left')
             plt.title(det+' Residual whitened data after subtracting template around event')
-            plt.savefig('figures/'+eventname+"_"+det+"_matchtime."+plottype)
+            if saveplot:
+                plt.savefig('figures/'+eventname+"_"+det+"_matchtime."+plottype)
                          
             # -- Display PSD and template
             # must multiply by sqrt(f) to plot template fft on top of ASD:
@@ -235,4 +242,7 @@ def plot_dets(make_plots, eventname, plottype):
             plt.ylabel('strain noise ASD (strain/rtHz), template h(f)*rt(f)')
             plt.legend(loc='upper left')
             plt.title(det+' ASD and template around event')
-            plt.savefig('figures/'+eventname+"_"+det+"_matchfreq."+plottype)
+            if saveplot:
+                plt.savefig('figures/'+eventname+"_"+det+"_matchfreq."+plottype)
+        
+    return normalization, offset, template
