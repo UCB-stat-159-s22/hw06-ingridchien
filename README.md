@@ -5,8 +5,11 @@
 **Makefile Targets:** 
 
 `env`: creates and configures the environment.
+
 `html`: build the JupyterBook normally (calling jupyterbook build .). Note this build can only be viewed if the repo is cloned locally, or with the VNC desktop on the hub.
+
 `html-hub`: build the JupyterBook so that you can view it on the hub with the URL proxy trick as indicated above.
+
 `clean`: clean up the figures, audio and _build folders.
 
 **Activating the Environment:**
