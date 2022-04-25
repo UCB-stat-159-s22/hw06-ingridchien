@@ -32,5 +32,5 @@ html:
   use_repository_button: true
 
 launch_buttons:
-notebook_interface: classic  # The interface interactive links will activate ["classic", "jupyterlab"]
-#binderhub_url: https://mybinder.org  # The URL of the BinderHub (e.g., https://mybinder.org)
+  notebook_interface: classic  # The interface interactive links will activate ["classic", "jupyterlab"]
+  binderhub_url: https://mybinder.org/v2/gh/UCB-stat-159-s22/hw06-ingridchien/HEAD?labpath=index.ipynb  # The URL of the BinderHub (e.g., https://mybinder.org)
