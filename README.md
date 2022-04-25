@@ -23,3 +23,7 @@ Use `pytest ligotools` in the ligo environment to run package tests.
 **Building the Jupyter Book:**
 
 If you are in the ligo environment, Deactivate the ligo deactivate with `conda deactivate` before running the makefile targets that build the jupyter book. 
+
+If you are working on the hub, visit the following link after running the `hmtl-hub` makefile target to view the book.
+
+https://stat159.datahub.berkeley.edu/user-redirect/proxy/8000/index.html
