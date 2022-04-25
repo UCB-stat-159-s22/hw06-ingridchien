@@ -1,4 +1,4 @@
-name: bruh
+name: ligo
 dependencies:
   - python=2.7
   - decorator=4.4
