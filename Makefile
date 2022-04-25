@@ -2,7 +2,7 @@
 
 .PHONY: env
 env:
-	conda env create -f environment.yml
+	mamba env create -f environment.yml
 
 .PHONY: html
 html:
