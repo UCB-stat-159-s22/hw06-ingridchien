@@ -9,14 +9,14 @@
 `html-hub`: build the JupyterBook so that you can view it on the hub with the URL proxy trick as indicated above.
 `clean`: clean up the figures, audio and _build folders.
 
-**Activating the Environment**
+**Activating the Environment:**
 
 Activate the installed environemnt with `conda activate ligo`. Utilize pytests and the ligotools package in the ligo environment. 
 
-**Ligotools Test**
+**Ligotools Test:**
 
 Use `pytest ligotools` in the ligo environment to run package tests. 
 
-**Building the Jupyter Book**
+**Building the Jupyter Book:**
 
 If you are in the ligo environment, Deactivate the ligo deactivate with `conda deactivate` before running the makefile targets that build the jupyter book. 
