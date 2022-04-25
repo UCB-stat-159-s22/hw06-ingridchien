@@ -27,3 +27,10 @@ If you are in the ligo environment, Deactivate the ligo deactivate with `conda d
 If you are working on the hub, visit the following link after running the `hmtl-hub` makefile target to view the book.
 
 https://stat159.datahub.berkeley.edu/user-redirect/proxy/8000/index.html
+
+**Public Jupyter Book**
+
+Visit the following link to access the public book.
+
+https://ucb-stat-159-s22.github.io/hw06-ingridchien/
+
