@@ -21,7 +21,7 @@ https://mybinder.org/v2/gh/UCB-stat-159-s22/hw06-ingridchien/HEAD?labpath=index.
 
 **Activating the Environment:**
 
-Activate the installed environemnt with `conda activate ligo`. Utilize pytests and the ligotools package in the ligo environment. 
+Activate the installed environemnt with `conda activate ligo`. Use pytests and the ligotools package in the ligo environment. 
 
 **Ligotools Test:**
 
@@ -29,7 +29,7 @@ Use `pytest ligotools` in the ligo environment to run package tests.
 
 **Building the Jupyter Book:**
 
-If you are in the ligo environment, Deactivate the ligo deactivate with `conda deactivate` before running the makefile targets that build the jupyter book. 
+If you are in the ligo environment, deactivate it with `conda deactivate` before running the makefile targets that build the jupyter book. 
 
 If you are working on the hub, visit the following link after running the `hmtl-hub` makefile target to view the book.
 
